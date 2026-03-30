@@ -3,7 +3,13 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-
+  <v-app-bar>
+    <v-app-bar-title> Stellar Paw Park </v-app-bar-title>
+    <v-spacer></v-spacer>
+    <v-btn to="/userLogin">Login</v-btn>
+    <v-btn to="/userPage">Profile</v-btn>
+  </v-app-bar>
+<!--
 <header class="header">
   <h1 class="logo">Stellar Paw Park</h1>
   <nav class="login">
@@ -13,41 +19,13 @@ import { RouterLink, RouterView } from 'vue-router'
   <nav class="nav">
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/about">About</RouterLink>
-    <RouterLink to="/contact">Contact</RouterLink>
+    <RouterLink to="/schedule">Schedule</RouterLink>
   </nav>
 </header>
+-->
 
 </template>
 
 <style scoped lang="scss">
-
-.header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  padding: 20px;
-}
-.logo {
-  column: 1 / 2;
-  row: 1 / 2;
-  font-size: 2.5 rem;
-  font-weight: bold;
-  color: #cc1212;
-}
-.login {
-  column: 2 / 3;
-  row: 1 / 2;
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-right: 20px;
-}
-.nav {
-  column: 1 / 3;
-  row: 2 / 3;
-  display: flex;
-  justify-content: flex-start;
-  gap: 30px;
-}
 
 </style>

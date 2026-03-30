@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import homepage from '../views/homepage.vue'
+import about from '../views/about.vue'
+import schedule from '../views/schedule.vue'
+import userLogin from '../views/userLogin.vue'
+import userPage from '../views/userPage.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -12,22 +16,22 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/about.vue'),
+      component: about,
     },
     {
       path: '/schedule',
       name: 'schedule',
-      component: () => import('../views/schedule.vue'),
+      component: schedule,
     },
     {
       path: '/userLogin',
       name: 'userLogin',
-      component: () => import('../views/userLogin.vue'),
+      component: userLogin,
     },
     {
       path: '/userPage',
       name: 'userPage',
-      component: () => import('../views/userPage.vue'),
+      component: userPage,
     }
   ],
 })

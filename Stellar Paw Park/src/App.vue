@@ -1,28 +1,23 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import Header from './components/header.vue'
 import Footer from './components/footer.vue'
 </script>
 
 <template>
+  <v-app>
 
-  <div class="app-container">
     <Header />
 
-    <main>
-      <RouterView />
-    </main>
+    <v-main>
+        <RouterView />
+    </v-main>
 
     <Footer />
-  </div>
 
+  </v-app>
 </template>
 
 <style scoped lang="scss">
-.app-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-}
+
 </style>
