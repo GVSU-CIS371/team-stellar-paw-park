@@ -1,3 +1,26 @@
 $dark-knight: #231938;
 $midnight-velvet: #2c213f;
 $galaxy-gold: #d4b58c;
+
+#footer {
+    background-color: $dark-knight;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+    "trademark address contact";
+    padding: 20px;
+
+    .trademark { grid-area: trademark; color: $galaxy-gold; text-align: center; }
+    .address { grid-area: address; color: $galaxy-gold; text-align: center; }
+    .contact { grid-area: contact; color: $galaxy-gold; text-align: center; }
+}
+
+#homepage {
+    .our-story {
+        max-width: 100%;
+        background: $dark-knight;
+        color: $galaxy-gold;
+        padding: 20px;
+        text-align: center;
+    }
+}
