@@ -2,6 +2,7 @@
   import logo from '../assets/images/StellarParkTwo.png'
   import { ref } from 'vue'
   const drawer = ref(false)
+  const isLoggedIn = ref(false) // Placeholder for login state
 </script>
 
 <template>
@@ -18,8 +19,9 @@
 
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     
-    <v-btn to="/userLogin">Login</v-btn>
-    <v-btn to="/userPage">Profile</v-btn>
+    <v-btn v-if="isLoggedIn" to="/userPage">Profile</v-btn>
+    <v-btn v-else to="/userLogin">Login</v-btn>
+
   </v-app-bar>
 
   <v-navigation-drawer location="right" v-model="drawer">
@@ -33,7 +35,3 @@
   </v-navigation-drawer>
 
 </template>
-
-<style scoped lang="scss">
-
-</style>
