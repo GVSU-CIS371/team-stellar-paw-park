@@ -18,7 +18,7 @@
       </v-card-title>
 
       <v-card-text>
-        <v-text-field class="label" label="Username" variant="outlined"></v-text-field>
+        <v-text-field class="label" label="Email" variant="outlined"></v-text-field>
         <v-text-field class="label" label="Password" variant="outlined" type="password"></v-text-field>
       </v-card-text>
 

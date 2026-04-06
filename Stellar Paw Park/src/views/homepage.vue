@@ -2,9 +2,10 @@
   import homeOne from '../assets/images/homeOne.jpg'
   import homeTwo from '../assets/images/homeTwo.jpg'
   import homeThree from '../assets/images/homeThree.jpg'
+  import homeFour from '../assets/images/homeFour.jpg'
   import mapImage from '../assets/images/gvsuMap.png'
   
-const images = [homeOne, homeTwo, homeThree];
+const images = [homeOne, homeTwo, homeThree, homeFour];
 
 </script>
 
