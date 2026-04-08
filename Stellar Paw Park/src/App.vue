@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+import Header from './components/header.vue'
+import Footer from './components/footer.vue'
+
+</script>
+
+<template>
+  <v-app>
+
+    <Header />
+
+    <v-main>
+        <RouterView />
+    </v-main>
+
+    <Footer />
+
+  </v-app>
+</template>
+
+<style scoped lang="scss">
+
+</style>
