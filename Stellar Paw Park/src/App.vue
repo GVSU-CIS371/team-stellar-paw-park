@@ -18,7 +18,3 @@ import Footer from './components/footer.vue'
 
   </v-app>
 </template>
-
-<style scoped lang="scss">
-
-</style>

@@ -26,35 +26,35 @@ const images = [homeOne, homeTwo, homeThree, homeFour];
           What started as a simple challenge at home quickly became a bigger idea.
         </p>
         <p>
-          As proud owners of two energetic Australian Shepherds, we know firsthand how important daily exercise, 
-          stimulation, and safe socialization are for happy, healthy dogs. But like many dog owners, 
-          we found ourselves facing the same frustrating problem—what do you do when the weather just doesn’t cooperate?
+          As proud owners of two energetic Australian Shepherds, we know firsthand how important daily exercise,
+          stimulation, and safe socialization are for happy, healthy dogs. But like many dog owners,
+          we found ourselves facing the same frustrating problem—what do you do when the weather just doesn't cooperate?
         </p>
         <p>
-          Rain, snow, extreme heat, or icy conditions can make outdoor play difficult, and sometimes even unsafe. 
+          Rain, snow, extreme heat, or icy conditions can make outdoor play difficult, and sometimes even unsafe.
           On those days, it felt like there were very few reliable options to give our dogs the activity they truly need.
         </p>
         <p>
-          That’s where the idea for our dog park was born.
+          That's where the idea for our dog park was born.
         </p>
         <p>
-          We envisioned a space where dogs could run, play, 
-          and burn off energy regardless of the weather—while owners could feel confident knowing the environment is clean, 
+          We envisioned a space where dogs could run, play,
+          and burn off energy regardless of the weather—while owners could feel confident knowing the environment is clean,
           controlled, and safe. A place designed not just for convenience, but for peace of mind.
         </p>
         <p>
-          Our indoor facility is built around that vision. By offering structured play areas, scheduled sessions, 
-          and a membership system with verified vaccinations, we aim to create a community where every dog can enjoy themselves safely, 
+          Our indoor facility is built around that vision. By offering structured play areas, scheduled sessions,
+          and a membership system with verified vaccinations, we aim to create a community where every dog can enjoy themselves safely,
           and every owner can relax knowing their pet is in good company.
         </p>
         <p>
-          At the same time, we didn’t want to lose what makes outdoor adventures special. 
-          That’s why our outdoor space remains open and accessible, giving dogs the freedom to explore, roam, 
+          At the same time, we didn't want to lose what makes outdoor adventures special.
+          That's why our outdoor space remains open and accessible, giving dogs the freedom to explore, roam,
           and enjoy fresh air when conditions allow.
         </p>
         <p>
-          This project is more than just a business idea—it’s something we wish existed for our own dogs. 
-          And that’s exactly why we’re building it.
+          This project is more than just a business idea—it's something we wish existed for our own dogs.
+          And that's exactly why we're building it.
         </p>
         <p>
           Because every dog deserves a place to play—rain or shine.
