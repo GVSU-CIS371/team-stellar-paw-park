@@ -6,10 +6,14 @@ import { User } from 'firebase/auth'
 
 export const useAuthStore = defineStore('AuthStore', {
     state: () => ({
+        signUp: false,
         user: null as User | null,
         userData: null as appUser | null,
         email: "",
-        password: "",
+        password1: "",
+        password2: "",
+        fname: "",
+        lname: "",
         message: "",
     }),
     actions: {
@@ -18,7 +22,12 @@ export const useAuthStore = defineStore('AuthStore', {
             if (user) {
                 const userDoc: DocumentReference = doc(db, 'users', user.uid);
                 getDoc(userDoc).then((qd: DocumentSnapshot) => {
-                    this.userData = qd.data() as appUser;
+                    if (qd.exists()) {
+                        this.userData = qd.data() as appUser;
+                    }
+                    else {
+                        this.createUserData(user);
+                    }
                 })
             }
             else {
@@ -27,12 +36,15 @@ export const useAuthStore = defineStore('AuthStore', {
         },
         createUserData(user: User) {
             const userDoc: DocumentReference = doc(db, 'users', user.uid);
-            setDoc(userDoc, {
-                fname: user.displayName?.split(' ')[0] || '',
-                lname: user.displayName?.split(' ')[1] || '',
-                email: user.email || '',
+            const userData: appUser = {
+                userId: user.uid,
+                fname: user.displayName?.split(' ')[0] || this.fname,
+                lname: user.displayName?.split(' ')[1] || this.lname,
+                email: user.email || this.email,
                 phone: '',
                 admin: false
+            };
+            setDoc(userDoc, {userData
             }).then(() => {
                 console.log('User data created successfully');
             }).catch((error) => {
