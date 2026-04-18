@@ -6,7 +6,6 @@ import faq from '../views/faq.vue'
 import contactUs from '../views/contactUs.vue'
 import userLogin from '../views/userLogin.vue'
 import userPage from '../views/userPage.vue'
-import register  from '../views/register.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -40,11 +39,6 @@ const router = createRouter({
       path: '/userLogin',
       name: 'userLogin',
       component: userLogin,
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: register,
     },
     {
       path: '/userPage',
