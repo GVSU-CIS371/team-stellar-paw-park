@@ -1,7 +1,6 @@
-interface appUser {
+interface userType {
     userId: string;
-    fname: string;
-    lname: string;
+    name: string;
     email: string;
     phone: string;
     admin: boolean;
@@ -12,7 +11,7 @@ interface imageInfo {
     path: string;
 }
 
-interface dog {
+interface dogType {
     dogId: number;
     ownerId: number;
     name: string;
@@ -24,4 +23,4 @@ interface dog {
     vaccinationImg: imageInfo;
 } 
 
-export type { appUser, dog, imageInfo };
+export type { userType, dogType, imageInfo };
