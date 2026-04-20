@@ -1,11 +1,19 @@
 import './assets/main.scss'
 import { createApp } from 'vue'
+
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import 'vuetify/styles'
 import { VDateInput } from 'vuetify/labs/VDateInput'
 import '@mdi/font/css/materialdesignicons.css'
+import {
+  VFileUpload,
+  VFileUploadDropzone,
+  VFileUploadItem,
+  VFileUploadList,
+} from 'vuetify/labs/VFileUpload'
+
 import App from './App.vue'
 import router from './router'
 import { createPinia } from "pinia";
@@ -13,6 +21,11 @@ import { createPinia } from "pinia";
 const vuetify = createVuetify({
     components:{ 
         VDateInput , 
+        VFileUpload,
+        VFileUploadDropzone,
+        VFileUploadItem,
+        VFileUploadList,
+
         ...components 
     }, 
     directives,

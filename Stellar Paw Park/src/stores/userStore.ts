@@ -13,7 +13,7 @@ export const useUserStore = defineStore('UserStore', {
     actions: {
         async setUser(user: User) {
             this.loading = true;
-            
+
             const userDoc: DocumentReference = doc(db, 'users', user.uid);
             const userSnap = await getDoc(userDoc);
             if (userSnap.exists()) {
