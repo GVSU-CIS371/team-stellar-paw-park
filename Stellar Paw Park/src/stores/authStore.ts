@@ -40,7 +40,9 @@ export const useAuthStore = defineStore('AuthStore', {
 
                 if (user) {
                     userStore.setUser(user);
-                    router.push('/userPage');
+                    if (router.currentRoute.value.path === '/userLogin') {
+                        router.push('/userPage');
+                    }
                 }
                 else {
                     userStore.clearUser();
