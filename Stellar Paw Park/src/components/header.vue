@@ -1,8 +1,10 @@
 <script setup lang="ts">
   import logo from '../assets/images/StellarParkTwo.png'
   import { ref } from 'vue'
+  import { useAuthStore } from '../stores/authStore';
+import { V } from 'vue-router/dist/index-DFCq6eJK.js';
+  const authStore = useAuthStore();
   const drawer = ref(false)
-  const isLoggedIn = ref(false) // Placeholder for login state
 </script>
 
 <template>
@@ -19,7 +21,7 @@
 
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     
-    <v-btn v-if="isLoggedIn" to="/userPage">Profile</v-btn>
+    <v-btn v-if="authStore.user" to="/userPage">Profile</v-btn>
     <v-btn v-else to="/userLogin">Login</v-btn>
 
   </v-app-bar>
@@ -31,6 +33,7 @@
       <v-list-item to="/scheduleAndEvents">Schedule</v-list-item>
       <v-list-item to="/faq">FAQ</v-list-item>
       <v-list-item to="/contactUs">Contact Us</v-list-item>
+      <v-list-item v-if="authStore.user" @click="authStore.signOut">Sign Out</v-list-item>
     </v-list>
   </v-navigation-drawer>
 
