@@ -1,0 +1,45 @@
+import { defineStore } from 'pinia'
+import { userType, dogType } from '../types/storeTypes'
+import db, { auth } from '../firebase'
+import { DocumentReference, doc, getDoc, setDoc } from 'firebase/firestore';
+import { User } from '@firebase/auth';
+import { useAuthStore } from './authStore';
+
+export const useUserStore = defineStore('UserStore', {
+    state: () => ({
+        loading: true,
+        user: null as userType | null,
+    }),
+    actions: {
+        async setUser(user: User) {
+            this.loading = true;
+            
+            const userDoc: DocumentReference = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userDoc);
+            if (userSnap.exists()) {
+                this.user = userSnap.data() as userType;
+            }
+            else {
+                await this.createUser(user);
+            }
+
+            this.loading = false;
+        },
+        async createUser(user: User) {
+            const authStore = useAuthStore();
+            console.log(user);
+            const newUser: userType = {
+                userId: user.uid,
+                name: user.displayName || authStore.fname + " " + authStore.lname || '',
+                email: user.email || '',
+                phone: user.phoneNumber || '',
+                admin: false,
+            };
+            await setDoc(doc(db, 'users', user.uid), newUser);
+            this.user = newUser;
+        },
+        clearUser() {
+            this.user = null;
+        }
+    },
+})
