@@ -46,7 +46,6 @@
   import logo from '../assets/images/StellarParkThree.png'
   import { useAuthStore } from '../stores/authStore';
   const authStore = useAuthStore();
-  authStore.authListenerInit();
 
 </script>
 
