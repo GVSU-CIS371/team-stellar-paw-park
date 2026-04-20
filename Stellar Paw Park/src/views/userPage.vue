@@ -6,8 +6,31 @@
     <h1>Welcome, {{ userStore.user?.name}}!</h1>
     <p>Email: {{ userStore.user?.email }}</p>
     <p>Phone: {{ userStore.user?.phone}}</p>
+
     <v-divider class="my-4"></v-divider>
+
     <h2>Your Dogs:</h2>
+    <div v-for="(dog, index) in userStore.dogs" :key="index">
+      <v-card v-if="index % 2 == 0" class="mb-4">
+        <v-card-title>{{ dog.name }}</v-card-title>
+        <v-card-text>
+          <p>Breed: {{ dog.breed }}</p>
+          <p>Color: {{ dog.color }}</p>
+          <p>DOB: {{ dog.DOB }}</p>
+          <v-checkbox label="Vaccinations Up to Date" :model-value="dog.vaccinated" disabled></v-checkbox>
+        </v-card-text>
+      </v-card>
+      <v-card v-else class="mb-4" color="grey lighten-4">
+        <v-card-title>{{ dog.name }}</v-card-title>
+        <v-card-text>
+          <p>Breed: {{ dog.breed }}</p>
+          <p>Color: {{ dog.color }}</p>
+          <p>DOB: {{ dog.DOB }}</p>
+          <v-checkbox label="Vaccinations Up to Date" :model-value="dog.vaccinated" disabled></v-checkbox>
+        </v-card-text>
+      </v-card>
+    </div>
+
     <v-btn v-if="!dogStore.dogInfo" @click="dogStore.dogInfo = true">Add dog</v-btn>
     <v-card width="600" class="pa-4" v-if="dogStore.dogInfo">
       <v-card-title>Add Dog</v-card-title>
@@ -24,8 +47,9 @@
         <v-btn variant="tonal" @click="dogStore.addDog(userStore.user.userId)">Add Dog</v-btn>
       </v-card-actions>
     </v-card>
-    <ul>
-    </ul>
+
+    <v-divider class="my-4"></v-divider>
+    
   </v-container>
 </template>
 
