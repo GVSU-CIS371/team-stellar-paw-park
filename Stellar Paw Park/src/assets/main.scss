@@ -38,3 +38,23 @@ $galaxy-gold: #d4b58c;
         }
     }
 }
+.image-placeholder {
+  width: 120px;
+  height: 120px;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.flex-card {
+  flex: 1 1 380px;
+  max-width: 390px;
+}
+ul {
+  padding-left: 18px;
+}
+.policy-list {
+  padding-left: 18px;
+}
+.policy-list li {
+  margin-bottom: 8px;
+}

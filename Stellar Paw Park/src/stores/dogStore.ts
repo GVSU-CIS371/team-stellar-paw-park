@@ -22,5 +22,6 @@ export const useDogStore = defineStore('DogStore', {
                     console.error("Error adding dog: ", error);
                 });
         }
+
     },
 })
