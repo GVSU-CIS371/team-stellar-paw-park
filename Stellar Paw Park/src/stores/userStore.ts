@@ -55,6 +55,8 @@ export const useUserStore = defineStore('UserStore', {
             this.dogs = [];
         },
         initDogListener () {
+            if (!this.user?.userId) return;
+            
             if (this.dogListener) {
                 this.dogListener();
                 this.dogListener = null;

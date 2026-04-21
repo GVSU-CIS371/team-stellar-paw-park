@@ -2,8 +2,9 @@
   import logo from '../assets/images/StellarParkTwo.png'
   import { ref } from 'vue'
   import { useAuthStore } from '../stores/authStore';
-import { V } from 'vue-router/dist/index-DFCq6eJK.js';
+  import { useUserStore } from '../stores/userStore';
   const authStore = useAuthStore();
+  const userStore = useUserStore();
   const drawer = ref(false)
 </script>
 
@@ -21,7 +22,8 @@ import { V } from 'vue-router/dist/index-DFCq6eJK.js';
 
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     
-    <v-btn v-if="authStore.user" to="/userPage">Profile</v-btn>
+    <v-btn v-if="userStore.user?.admin" to="/admin">Account</v-btn>
+    <v-btn v-else-if="authStore.user" to="/userPage">Profile</v-btn>
     <v-btn v-else to="/userLogin">Login</v-btn>
 
   </v-app-bar>
@@ -33,7 +35,7 @@ import { V } from 'vue-router/dist/index-DFCq6eJK.js';
       <v-list-item to="/scheduleAndEvents">Schedule</v-list-item>
       <v-list-item to="/faq">FAQ</v-list-item>
       <v-list-item to="/contactUs">Contact Us</v-list-item>
-      <v-list-item v-if="authStore.user" @click="authStore.signOut">Sign Out</v-list-item>
+      <v-list-item v-if="authStore.user" @click="authStore.signOut()">Sign Out</v-list-item>
     </v-list>
   </v-navigation-drawer>
 

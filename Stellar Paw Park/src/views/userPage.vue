@@ -44,7 +44,7 @@
       </v-row>
       <v-card-actions>
         <v-btn variant="tonal" @click="dogStore.dogInfo = false">Cancel</v-btn>
-        <v-btn variant="tonal" @click="dogStore.addDog(userStore.user.userId)">Add Dog</v-btn>
+        <v-btn v-if="userStore.user?.userId" variant="tonal" @click="dogStore.addDog(userStore.user.userId)">Add Dog</v-btn>
       </v-card-actions>
     </v-card>
 
