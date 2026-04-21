@@ -71,7 +71,9 @@
         <div class="image-placeholder ml-4"></div>
       </div>
     </v-card>
+
     <v-divider class="my-4"></v-divider>
+
     <h2 class="mb-4">Our Park</h2>
     <!-- PARK INFO SECTION -->
     <div class="d-flex gap-4 flex-wrap justify-center mt-6">
@@ -116,6 +118,31 @@
       </v-card>
 
     </div>
+
+    <v-divider class="my-4"></v-divider>
+
+    <h2 class="mb-4">Park Policies</h2>
+
+    <v-card class="pa-4">
+      <v-card-text>
+        <ul class="policy-list">
+          <li><strong>Vaccinations Required:</strong> All dogs must be up-to-date on core vaccinations.</li>
+          <li><strong>Health Requirement:</strong> Dogs must be free of illness, parasites, or injury.</li>
+          <li><strong>Supervision:</strong> Owners must supervise their dogs at all times unless in a private booking.</li>
+          <li><strong>Behavior Policy:</strong> Aggressive or unsafe behavior is not permitted.</li>
+          <li><strong>Leash Rules:</strong> Dogs must be leashed when entering and exiting.</li>
+          <li><strong>Area Guidelines:</strong> Use appropriate play zones for your dog’s size and temperament.</li>
+          <li><strong>Clean-Up:</strong> Owners are responsible for cleaning up after their dogs.</li>
+          <li><strong>No Food:</strong> Food and treats are not allowed in shared play areas.</li>
+          <li><strong>Children:</strong> Children must be supervised at all times.</li>
+          <li><strong>Private Bookings:</strong> Sessions must start and end within reserved time.</li>
+          <li><strong>Equipment Use:</strong> Use obstacles safely; advanced setups available upon request.</li>
+          <li><strong>Outdoor Access:</strong> May vary depending on weather conditions.</li>
+          <li><strong>Liability:</strong> Owners are responsible for their dog’s actions and interactions.</li>
+        </ul>
+      </v-card-text>
+    </v-card>
+
   </v-container>
 
   
@@ -133,8 +160,13 @@
   flex: 1 1 380px;
   max-width: 390px;
 }
-
 ul {
   padding-left: 18px;
+}
+.policy-list {
+  padding-left: 18px;
+}
+.policy-list li {
+  margin-bottom: 8px;
 }
 </style>
