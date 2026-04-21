@@ -6,6 +6,7 @@ import faq from '../views/faq.vue'
 import contactUs from '../views/contactUs.vue'
 import userLogin from '../views/userLogin.vue'
 import userPage from '../views/userPage.vue'
+import admin from '../views/admin.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/userPage',
       name: 'userPage',
       component: userPage,
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin,
     }
   ],
 })
