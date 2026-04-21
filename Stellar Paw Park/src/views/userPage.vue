@@ -49,16 +49,13 @@
     </v-card>
 
     <v-divider class="my-4"></v-divider>
-    
+
   </v-container>
 </template>
 
 <script setup lang="ts">  
-import { useAuthStore } from '../stores/authStore';
 import { useDogStore } from '../stores/dogStore';
 import { useUserStore } from '../stores/userStore';
-const authStore = useAuthStore();
 const dogStore = useDogStore();
 const userStore = useUserStore();
-
 </script>
