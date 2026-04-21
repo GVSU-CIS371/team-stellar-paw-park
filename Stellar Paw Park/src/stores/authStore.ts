@@ -32,23 +32,23 @@ export const useAuthStore = defineStore('AuthStore', {
 
             const router = useRouter();
 
-            this.authListener = onAuthStateChanged(auth, (user) => {
+            this.authListener = onAuthStateChanged(auth, async (user) => {
                 this.user = user;
 
                 const userStore = useUserStore();
-                userStore.clearUser();
 
                 if (user) {
-                    userStore.setUser(user);
-                    if (router.currentRoute.value.path === '/userLogin') {
-                        router.push('/userPage');
+                    await userStore.setUser(user);
+                    if (userStore.user?.admin) {
+                        router.push('/admin');
+                    }
+                    else {
+                        router.push('/userPage')
                     }
                 }
                 else {
                     userStore.clearUser();
-                    if (router.currentRoute.value.path === '/userPage') {
-                        router.push('/');
-                    }
+                    router.replace('/');
                 }
             })
         },
@@ -94,8 +94,8 @@ export const useAuthStore = defineStore('AuthStore', {
                 });
         },
         async signOut() {
-            this.reset();
             await signOut(auth);
+            this.reset();
         },
         reset() {
             this.email = "";
