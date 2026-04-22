@@ -121,6 +121,46 @@
 
     <v-divider class="my-4"></v-divider>
 
+    <h2 class="mb-4">Park Hours</h2>
+
+    <v-card class="pa-4">
+      <div class="d-flex flex-wrap">
+
+        <!-- LEFT HALF: HOURS -->
+        <div class="half pr-4">
+          <div class="hours-row closed">
+            <span class="day">Sunday</span>
+            <span class="time">Closed</span>
+          </div>
+
+          <div class="hours-row">
+            <span class="day">Monday – Friday</span>
+            <span class="time">9:00 AM – 9:00 PM</span>
+          </div>
+
+          <div class="hours-row">
+            <span class="day">Saturday</span>
+            <span class="time">8:00 AM – 6:00 PM</span>
+          </div>
+        </div>
+
+        <v-divider vertical></v-divider>
+
+        <!-- RIGHT HALF: HOLIDAY NOTE -->
+        <div class="half pl-4 d-flex align-center">
+          <div>
+            <v-card-title class="pa-0 mb-2">Holiday Hours</v-card-title>
+            <v-card-text class="pa-0">
+              We are closed on all major holidays. Hours may vary on select dates—please check ahead or contact us for confirmation.
+            </v-card-text>
+          </div>
+        </div>
+
+      </div>
+    </v-card>
+    
+    <v-divider class="my-4"></v-divider>
+
     <h2 class="mb-4">Park Policies</h2>
 
     <v-card class="pa-4">
@@ -168,5 +208,33 @@ ul {
 }
 .policy-list li {
   margin-bottom: 8px;
+}
+.half {
+  flex: 1 1 50%;
+  min-width: 250px;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.hours-row:last-child {
+  border-bottom: none;
+}
+
+.day {
+  font-weight: 500;
+}
+
+.time {
+  font-weight: 400;
+}
+
+.closed .time {
+  color: #888;
+  font-style: italic;
 }
 </style>
