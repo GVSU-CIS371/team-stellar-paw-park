@@ -18,5 +18,30 @@ interface userType {
     phone: string;
     admin: boolean;
 }
+interface bookingType {
+    startTime: Timestamp;
+    endTime: Timestamp;
+    area: "small" | "large" | "private";
+    userId: string;
+}
 
-export type { userType, dogType };
+interface areaType {
+    name: string;
+    capacity: number;
+    type: string;
+}
+
+interface hourType {
+    start: number;
+    end: number;
+}
+
+interface slotType {
+    hour: number;
+    name: string;
+    currentCapacity: number;
+    maxCapacity: number;
+    type: string;
+}
+
+export type { userType, dogType, bookingType, areaType, hourType, slotType };
