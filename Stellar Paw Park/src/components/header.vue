@@ -32,8 +32,7 @@
     <v-list>
       <v-list-item to="/">Home</v-list-item>
       <v-list-item to="/about">About</v-list-item>
-      <v-list-item to="/scheduleAndEvents">Schedule</v-list-item>
-      <v-list-item to="/faq">FAQ</v-list-item>
+      <v-list-item to="/eventsAndBooking">Events/Booking</v-list-item>
       <v-list-item to="/contactUs">Contact Us</v-list-item>
       <v-list-item v-if="authStore.user" @click="authStore.signOut()">Sign Out</v-list-item>
     </v-list>

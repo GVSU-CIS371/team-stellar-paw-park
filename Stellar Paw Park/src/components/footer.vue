@@ -1,6 +1,6 @@
 <template>
 
-  <v-app-footer id="footer" height="100">
+  <v-footer app id="footer">
     <div class="trademark">
       &copy; 2024 Stellar Paw Park. All rights reserved.
     </div>
@@ -10,6 +10,6 @@
     <div class="contact">
       Contact | (555) 123-4567 | Email | info@stellarpawpark.com
     </div>
-  </v-app-footer>
+  </v-footer>
 
 </template>
