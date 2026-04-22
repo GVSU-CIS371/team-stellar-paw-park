@@ -1,10 +1,12 @@
+import { Timestamp } from "firebase/firestore";
+
 interface dogType {
     ownerId: string;
     name: string;
     image: File;
     breed: string;
     color: string;
-    DOB: string;
+    DOB: Timestamp;
     vaccinated: boolean;
     vaccinationImg: File;
 } 
