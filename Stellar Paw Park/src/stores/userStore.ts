@@ -69,6 +69,13 @@ export const useUserStore = defineStore('UserStore', {
                     if (change.type === 'added') {
                         this.dogs.push(dogData)
                     }
+                    else if (change.type === 'modified') {
+                        const index = this.dogs.findIndex(i => i.name === dogData.name)
+                        this.dogs[index] = dogData;
+                    }
+                    else {
+                        this.dogs = this.dogs.filter((i) => i.name != dogData.name)
+                    }
                 }
             })
         }
