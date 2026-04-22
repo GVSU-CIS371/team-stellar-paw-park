@@ -6,13 +6,47 @@
 
   <v-divider></v-divider>
   
-  <v-container width="800" height="600" class="mx-auto pa-4">
+  <v-container width="800" class="mx-auto pa-4">
     <h1>Session Booking</h1>
+    <v-row class="justify-center">
+      <v-date-picker 
+      title="Pick a date to view available time slots. Must be logged in to sign up."
+        v-model="bookingStore.date" 
+        @click="bookingStore.dateSelected()"
+        :weekday-format="$vuetify.display.width > 550 ? 'long' : 'short'"
+        width="700"
+      ></v-date-picker>
+    </v-row>
+    
+    <v-row>
+      <v-col
+        v-for="(slot, index) in bookingStore.timeSlots"
+        :key="index"
+        cols="4"
+      >
+        <v-card class="mb-4 pa-4">
+          <div class="d-flex align-center">
+            <div>
+              <v-card-title class="pa-0"> {{ bookingStore.formatHour(slot.hour) }} </v-card-title>
+              <v-card-text class="pa-0">
+                <div>Area Name: {{ slot.name }}</div>
+                <div>Capacity: {{ slot.currentCapacity }} / {{ slot.maxCapacity }}</div>
+                <div>Public/Private: {{ slot.type }} </div>
+                <v-btn v-if="userStore.user" @click="bookingStore.addBooking(userStore.user?.userId, slot)">Book</v-btn>
+              </v-card-text>
+            </div>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
   </v-container>
 
 </template>
 
 <script setup lang="ts">
 import { useBookingStore } from '../stores/bookingStore';
+import { useUserStore } from '../stores/userStore';
 const bookingStore = useBookingStore();
+const userStore = useUserStore();
 </script>
