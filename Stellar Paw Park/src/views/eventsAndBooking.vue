@@ -24,7 +24,7 @@
         :key="index"
         cols="4"
       >
-        <v-card class="mb-4 pa-4">
+        <v-card class="mb-4 pa-4" @click="bookingStore.setupBooking(slot, userStore.user?.userId)">
           <div class="d-flex align-center">
             <div>
               <v-card-title class="pa-0"> {{ bookingStore.formatHour(slot.hour) }} </v-card-title>
@@ -32,7 +32,6 @@
                 <div>Area Name: {{ slot.name }}</div>
                 <div>Capacity: {{ slot.currentCapacity }} / {{ slot.maxCapacity }}</div>
                 <div>Public/Private: {{ slot.type }} </div>
-                <v-btn v-if="userStore.user" @click="bookingStore.addBooking(userStore.user?.userId, slot)">Book</v-btn>
               </v-card-text>
             </div>
           </div>
@@ -41,6 +40,23 @@
     </v-row>
 
   </v-container>
+  <v-dialog v-model="bookingStore.booking" max-width="400">
+      <v-card>
+        <v-card-title>Select Dog(s) to add to Booking</v-card-title>
+        <v-card-text>
+          <v-select 
+          v-model="bookingStore.selectedDogs"
+          :items="userStore.dogs"
+          item-title="name"
+          multiple
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="bookingStore.booking=false; bookingStore.selectedDogs=[]">Cancel</v-btn>
+          <v-btn @click="bookingStore.addBooking()">Book</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
 </template>
 

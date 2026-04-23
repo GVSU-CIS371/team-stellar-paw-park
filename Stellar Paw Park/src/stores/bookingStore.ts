@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { bookingType, areaType, hourType, slotType } from '../types/storeTypes'
+import { userType, areaType, hourType, slotType } from '../types/storeTypes'
 import { watch } from 'vue'
 import db from '../firebase'
 import { 
@@ -23,8 +23,12 @@ export const useBookingStore = defineStore('BookingStore', {
     state: () => ({ 
         areas: [] as areaType[],
         timeSlots: [] as slotType[],
+        selectedSlot: {} as slotType,
+        selectedDogs: [],
+        booking: false,
         date: new Date,
         hours: {} as hourType,
+        user: "",
     }),
     actions: {
         async dateSelected() {
@@ -68,15 +72,28 @@ export const useBookingStore = defineStore('BookingStore', {
             const formatted = hour % 12 || 12
             return `${formatted.toString().padStart(2, " ")}:00 ${suffix}`
         },
-        addBooking(user: string, slot: slotType) {
+        addBooking() {
             const bookingColl: CollectionReference = collection(db, 'bookings');
-            addDoc(bookingColl, {user: user, slot})
+            addDoc(bookingColl, {user: this.user, date: this.date, area: this.selectedSlot.type, dogs: this.selectedDogs})
                 .then(() => {
                     console.log("Booking successfully added.")
                 })
                 .catch(() => {
                     console.log("Failed booking creation.")
                 })
+            this.selectedSlot = {} as slotType;
+            this.selectedDogs = [];
+            this.booking = false;
+        },
+        setupBooking(slot: slotType, user: string) {
+            if (!user) {
+                return;
+            }
+            else {
+                this.user = user;
+            }
+            this.selectedSlot = slot;
+            this.booking = true;
         }
     }
 });
