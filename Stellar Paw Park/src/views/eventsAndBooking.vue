@@ -24,7 +24,7 @@
         :key="index"
         cols="4"
       >
-        <v-card class="mb-4 pa-4" @click="bookingStore.setupBooking(slot, userStore.user?.userId)">
+        <v-card v-if="userStore.user" class="mb-4 pa-4" @click="bookingStore.setupBooking(slot, userStore.user?.userId)">
           <div class="d-flex align-center">
             <div>
               <v-card-title class="pa-0"> {{ bookingStore.formatHour(slot.hour) }} </v-card-title>

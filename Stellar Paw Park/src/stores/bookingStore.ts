@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { userType, areaType, hourType, slotType } from '../types/storeTypes'
+import { userType, areaType, hourType, slotType, bookingType } from '../types/storeTypes'
 import { watch } from 'vue'
 import db from '../firebase'
 import { 
@@ -11,6 +11,7 @@ import {
     getDocs, 
     deleteDoc, 
     updateDoc,
+    Query,
     query,
     where,
     QuerySnapshot,
@@ -29,6 +30,7 @@ export const useBookingStore = defineStore('BookingStore', {
         date: new Date,
         hours: {} as hourType,
         user: "",
+        bookedHours: {} as Record<string, number>,
     }),
     actions: {
         async dateSelected() {
@@ -56,12 +58,15 @@ export const useBookingStore = defineStore('BookingStore', {
                 ...(doc.data() as Omit<areaType, "name">)
             }))
             for (let hour = this.hours.start; hour < this.hours.end; hour++) {
+                this.bookedHours = {} as Record<string, number>;
+                await this.checkBookings(hour);
+                console.log(this.bookedHours)
                 for (const area of this.areas) {
                     this.timeSlots.push({
                         hour,
                         name: area.name,
                         type: area.type,
-                        currentCapacity: 0,
+                        currentCapacity: this.bookedHours[area.name]?? 0,
                         maxCapacity: area.capacity
                     })
                 }
@@ -72,9 +77,23 @@ export const useBookingStore = defineStore('BookingStore', {
             const formatted = hour % 12 || 12
             return `${formatted.toString().padStart(2, " ")}:00 ${suffix}`
         },
+        async checkBookings(hour: number) {
+            const getHourColl: Query = query( collection(db, "bookings"), where("hour", "==", hour), where("date", "==", this.date));
+            await getDocs(getHourColl).then((qs: QuerySnapshot) => {
+                qs.forEach((qd: QueryDocumentSnapshot) => {
+                    const bookData = qd.data();
+                    if (bookData.area in this.bookedHours) {
+                        this.bookedHours[bookData.area] += bookData.dogs.length;
+                    }
+                    else {
+                        this.bookedHours[bookData.area] = bookData.dogs.length;
+                    }
+                })
+            })
+        },
         addBooking() {
             const bookingColl: CollectionReference = collection(db, 'bookings');
-            addDoc(bookingColl, {user: this.user, date: this.date, area: this.selectedSlot.type, dogs: this.selectedDogs})
+            addDoc(bookingColl, {user: this.user, date: this.date, hour: this.selectedSlot.hour ,area: this.selectedSlot.name, dogs: this.selectedDogs})
                 .then(() => {
                     console.log("Booking successfully added.")
                 })

@@ -19,10 +19,7 @@ interface userType {
     admin: boolean;
 }
 interface bookingType {
-    startTime: Timestamp;
-    endTime: Timestamp;
-    area: "small" | "large" | "private";
-    userId: string;
+    [area: string]: number
 }
 
 interface areaType {
