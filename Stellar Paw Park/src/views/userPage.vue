@@ -16,7 +16,7 @@
     <div class="flex-grow-1 pa-4">
 
       <section id="dogs">
-        <h2>Your Dogs:</h2>
+        <h1>Your Dogs:</h1>
 
         <v-row>
           <v-col
@@ -83,7 +83,20 @@
             <v-btn v-if="userStore.user?.userId && dogStore.editDogInfo" variant="tonal" @click="dogStore.editDog(userStore.user.userId)">Edit Dog</v-btn> 
           </v-card-actions> 
         </v-card>
+      </section>
 
+      <v-divider class="my-4"/>
+
+      <h1>Scheduled Bookings</h1>
+      <section id="bookings">
+        <v-data-table :items="userStore.bookings" :headers="userStore.headers">
+          <template v-slot:item.dogs="{ item }">
+            {{ item.dogs.join(", ") }}
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-btn variant="tonal" size="md" @click="userStore.cancelBooking(item)">Cancel</v-btn>
+          </template>
+        </v-data-table>
       </section>
     </div>
   </div>

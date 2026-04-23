@@ -12,6 +12,7 @@ import {
     setDoc, 
     where,
     onSnapshot,
+    QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import { User } from '@firebase/auth';
 import { useAuthStore } from './authStore';
@@ -22,6 +23,14 @@ export const useUserStore = defineStore('UserStore', {
         user: null as userType | null,
         dogs: [] as dogType[],
         dogListener: null as (() => void) | null,
+        bookings:[] as {date: Date, dogs: [], hour: Number, area: ""}[],
+        headers: [
+            {title: "Date", key: 'date'},
+            {title: "Hour", key: 'hour'},
+            {title: "Area", key: 'area'},
+            {title: "Dogs", key: 'dogs'},
+            {title: "Cancel", key: 'actions', sortable: false},
+        ]
     }),
     actions: {
         async setUser(user: User) {
@@ -32,6 +41,7 @@ export const useUserStore = defineStore('UserStore', {
             if (userSnap.exists()) {
                 this.user = userSnap.data() as userType;
                 this.initDogListener();
+                this.bookingsInit();
             }
             else {
                 await this.createUser(user);
@@ -78,6 +88,21 @@ export const useUserStore = defineStore('UserStore', {
                     }
                 }
             })
+        },
+        async bookingsInit() {
+            const getBookColl: Query = query( collection(db, "bookings"), where("user", "==", this.user?.userId));
+            await getDocs(getBookColl).then((qs: QuerySnapshot) => {
+                qs.forEach((qd: QueryDocumentSnapshot) => {
+                    const bookData = qd.data();
+                    const date = bookData.date.toDate();
+                    const formattedDate = date.toLocaleDateString("en-CA");
+                    this.bookings.push({date: formattedDate, dogs: bookData.dogs, hour: bookData.hour, area: bookData.area})
+                    console.log(this.bookings);
+                })
+            })
+        },
+        cancelBooking(bookingInfo: {date: Date, dogs: [], hour: Number, area: ""}) {
+
         }
     },
 })
