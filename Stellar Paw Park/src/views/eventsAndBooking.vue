@@ -1,6 +1,6 @@
 <template>
 
-  <v-container width="800" height="600" class="mx-auto pa-4">
+  <v-container width="800" class="mx-auto pa-4">
     <h1>Upcoming Events</h1>
   </v-container>
 
@@ -24,7 +24,7 @@
         :key="index"
         cols="4"
       >
-        <v-card v-if="userStore.user" class="mb-4 pa-4" @click="bookingStore.setupBooking(slot, userStore.user?.userId)">
+        <v-card class="mb-4 pa-4" @click="bookingStore.setupBooking(slot, userStore.user?.userId ?? '')">
           <div class="d-flex align-center">
             <div>
               <v-card-title class="pa-0"> {{ bookingStore.formatHour(slot.hour) }} </v-card-title>
