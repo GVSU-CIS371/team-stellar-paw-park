@@ -8,7 +8,7 @@ import userPage from '../views/userPage.vue'
 import admin from '../views/admin.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("/team-stellar-paw-park/"),
   routes: [
     {
       path: '/',
