@@ -1,14 +1,13 @@
 <template>
-  <v-container v-if="userStore.loading">
-    ...Loading
-  </v-container>
+  <v-overlay v-if="userStore.loading">
+    <v-progress-circular indeterminate />
+</v-overlay>
   
   <v-container v-else>
     <div class="d-flex">
 
-    <v-navigation-drawer permanent width="160">
-      <v-list-item :title="userStore.user?.name" />
-      <v-btn class="me-4" variant="text" icon="mdi-pencil" size="md"/>
+    <v-navigation-drawer permanent width="200">
+      <h1 style="font-size: 25px;" >{{ userStore.user?.name }}</h1>
       <v-divider />
       <v-list-item href="#dogs" title="Dogs"/>
       <v-list-item href="#bookings" title="Bookings" />
@@ -79,7 +78,7 @@
             <v-file-input max-width="250" max-height="250" label="Upload Vaccination Records" prepend-icon="mdi-camera" variant="outlined" accept=".jpg,.jpeg,.png,.pdf"></v-file-input> 
           </v-row> 
           <v-card-actions> 
-            <v-btn variant="tonal" @click="dogStore.newDogInfo = false; dogStore.editDogInfo = false">Cancel</v-btn> 
+            <v-btn variant="tonal" @click="dogStore.newDogInfo = false; dogStore.editDogInfo = false; dogStore.dog = {} as dogType">Cancel</v-btn> 
             <v-btn v-if="userStore.user?.userId && dogStore.newDogInfo" variant="tonal" @click="dogStore.addDog(userStore.user.userId)">Add Dog</v-btn> 
             <v-btn v-if="userStore.user?.userId && dogStore.editDogInfo" variant="tonal" @click="dogStore.editDog(userStore.user.userId)">Edit Dog</v-btn> 
           </v-card-actions> 
@@ -95,6 +94,7 @@
 import { useDogStore } from '../stores/dogStore';
 import { useUserStore } from '../stores/userStore';
 import dogBreeds from '../assets/dogBreeds.json'
+import { dogType } from '@/types/storeTypes';
 const dogStore = useDogStore();
 const userStore = useUserStore();
 </script>
