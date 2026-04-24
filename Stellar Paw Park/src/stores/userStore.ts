@@ -13,7 +13,6 @@ import {
     where,
     onSnapshot,
     QueryDocumentSnapshot,
-    CollectionReference,
     deleteDoc,
 } from 'firebase/firestore';
 import { User } from '@firebase/auth';

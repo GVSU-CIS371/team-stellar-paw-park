@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { userType, areaType, hourType, slotType, bookingType } from '../types/storeTypes'
-import { watch } from 'vue'
+import { areaType, hourType, slotType } from '../types/storeTypes'
 import db from '../firebase'
 import { 
     addDoc, 
@@ -8,9 +7,7 @@ import {
     CollectionReference, 
     doc,
     getDoc,
-    getDocs, 
-    deleteDoc, 
-    updateDoc,
+    getDocs,
     Query,
     query,
     where,
@@ -36,7 +33,6 @@ export const useBookingStore = defineStore('BookingStore', {
         async dateSelected() {
             this.timeSlots = [];
             this.areas = [];
-            console.log(this.date);
             this.slotInit();
         },
         async slotInit() {
@@ -60,7 +56,6 @@ export const useBookingStore = defineStore('BookingStore', {
             for (let hour = this.hours.start; hour < this.hours.end; hour++) {
                 this.bookedHours = {} as Record<string, number>;
                 await this.checkBookings(hour);
-                console.log(this.bookedHours)
                 for (const area of this.areas) {
                     this.timeSlots.push({
                         hour,

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { userType, dogType } from '../types/storeTypes'
+import { dogType } from '../types/storeTypes'
 import db from '../firebase'
 import { 
     addDoc, 
