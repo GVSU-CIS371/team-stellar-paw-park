@@ -13,6 +13,8 @@ import {
     where,
     onSnapshot,
     QueryDocumentSnapshot,
+    CollectionReference,
+    deleteDoc,
 } from 'firebase/firestore';
 import { User } from '@firebase/auth';
 import { useAuthStore } from './authStore';
@@ -23,7 +25,10 @@ export const useUserStore = defineStore('UserStore', {
         user: null as userType | null,
         dogs: [] as dogType[],
         dogListener: null as (() => void) | null,
-        bookings:[] as {date: Date, dogs: [], hour: Number, area: ""}[],
+        bookings:[] as {id: string, date: Date, dogs: [], hour: Number, area: string}[],
+        deleteBooking: false,
+        deleteBookingId: '',
+        confirmation: false,
         headers: [
             {title: "Date", key: 'date'},
             {title: "Hour", key: 'hour'},
@@ -96,13 +101,17 @@ export const useUserStore = defineStore('UserStore', {
                     const bookData = qd.data();
                     const date = bookData.date.toDate();
                     const formattedDate = date.toLocaleDateString("en-CA");
-                    this.bookings.push({date: formattedDate, dogs: bookData.dogs, hour: bookData.hour, area: bookData.area})
-                    console.log(this.bookings);
+                    this.bookings.push({id: qd.id, date: formattedDate, dogs: bookData.dogs, hour: bookData.hour, area: bookData.area})
                 })
             })
         },
-        cancelBooking(bookingInfo: {date: Date, dogs: [], hour: Number, area: ""}) {
-
+        async cancelBooking() {
+            await deleteDoc(doc(db, "bookings", this.deleteBookingId))
+            this.bookings = this.bookings.filter( 
+                b => !(b.id === this.deleteBookingId));
+            this.confirmation = false;
+            this.deleteBooking = false;
+            this.deleteBookingId = '';
         }
     },
 })

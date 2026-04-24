@@ -51,7 +51,9 @@
                   <v-btn
                     variant="text"
                     icon="mdi-delete"
-                    @click="dogStore.deleteDog(JSON.parse(JSON.stringify(dog)))"
+                    @click="dogStore.dog = JSON.parse(JSON.stringify(dog)); 
+                    userStore.confirmation = true; 
+                    dogStore.deleteDogInfo = true"
                   />
                   </div>
                   <v-checkbox v-model="dog.vaccinated" disabled label="Vaccination Verified" />
@@ -94,13 +96,45 @@
             {{ item.dogs.join(", ") }}
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-btn variant="tonal" size="md" @click="userStore.cancelBooking(item)">Cancel</v-btn>
+            <v-btn variant="tonal" size="md" 
+              @click="userStore.deleteBookingId = item.id;
+              userStore.confirmation = true;
+              userStore.deleteBooking = true"
+              >Cancel
+            </v-btn>
           </template>
         </v-data-table>
       </section>
     </div>
   </div>
   </v-container>
+
+  <v-dialog v-model="userStore.confirmation" max-width="400">
+      <v-card v-if="userStore.deleteBooking">
+        <v-card-title>Warning</v-card-title>
+        <v-card-text>
+          <p>This action cannot be done.</p>
+          <p>Are you sure you want to cancel this booking?</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="userStore.confirmation = false; userStore.deleteBooking = false">Cancel</v-btn>
+          <v-btn @click="userStore.cancelBooking()">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+      <v-card v-else-if="dogStore.deleteDogInfo">
+        <v-card-title>Warning</v-card-title>
+        <v-card-text>
+          <p>This action cannot be done.</p>
+          <p>Are you sure you want to take</p>
+          <p>{{ dogStore.dog.name }} off of your account?</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="userStore.confirmation = false; dogStore.deleteDogInfo = false">Cancel</v-btn>
+          <v-btn @click="dogStore.deleteDog(JSON.parse(JSON.stringify(dogStore.dog))); userStore.confirmation = false">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
 </template>
 
 <script setup lang="ts">  

@@ -20,6 +20,8 @@ export const useDogStore = defineStore('DogStore', {
         dog: {} as dogType,
         newDogInfo: false,
         editDogInfo: false,
+        deleteDogInfo: false,
+        dogToDelete: {} as dogType,
     }),
     actions: {
         addDog(owner: string) {
