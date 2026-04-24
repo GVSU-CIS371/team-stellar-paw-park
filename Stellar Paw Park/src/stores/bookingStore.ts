@@ -14,7 +14,8 @@ import {
     QuerySnapshot,
     QueryDocumentSnapshot,
     DocumentReference,
-    DocumentSnapshot
+    DocumentSnapshot,
+    Timestamp,
 } from 'firebase/firestore';
 
 export const useBookingStore = defineStore('BookingStore', {
@@ -28,6 +29,8 @@ export const useBookingStore = defineStore('BookingStore', {
         hours: {} as hourType,
         user: "",
         bookedHours: {} as Record<string, number>,
+        errorMessage: '',
+        callendarMessage: '',
     }),
     actions: {
         async dateSelected() {
@@ -36,8 +39,26 @@ export const useBookingStore = defineStore('BookingStore', {
             this.slotInit();
         },
         async slotInit() {
+            // Check if closed on day selected and update error message
+            const startOfDay = new Date (this.date.setHours(0,0,0,0));
+            const endOfDay = new Date(this.date.setHours(23,59,59,999));
+            const getClose: Query = query(collection(db, "closures"), 
+                where("day", ">=", Timestamp.fromDate(startOfDay)),
+                where("day", "<=", Timestamp.fromDate(endOfDay)));
+            const qs = await getDocs(getClose);
+            if (!qs.empty) {
+                const qd = qs.docs[0];
+                this.callendarMessage = "We are closed this day due to " + qd?.data().reason;
+                return;
+            }
+            
             // Get the day of the week as an int and pull hours from firebase
             const selectedDay = this.date.getDay().toString();
+            if (this.date.getDay() === 0) {
+                this.callendarMessage = "We are closed on Sundays, please select another day.";
+                return;
+            }
+            this.callendarMessage = '';
             const hoursDoc: DocumentReference = doc(db, 'businessHours', selectedDay);
             await getDoc(hoursDoc).then((qd: DocumentSnapshot) => {
                 if (qd.exists()) {
@@ -87,6 +108,16 @@ export const useBookingStore = defineStore('BookingStore', {
             })
         },
         addBooking() {
+            const capacityRemaining = this.selectedSlot.maxCapacity - this.selectedSlot.currentCapacity;
+            if (this.selectedSlot.type === "private" && this.selectedSlot.currentCapacity !== 0) {
+                this.errorMessage = "This session is already booked, pick another time slot.";
+                return;
+            }
+            else if ((capacityRemaining - this.selectedDogs.length) < 0 && this.selectedSlot.type !== "private") {
+                this.errorMessage = "Not enough space remaining, pick another time slot.";
+                return;
+            }
+
             const bookingColl: CollectionReference = collection(db, 'bookings');
             addDoc(bookingColl, {user: this.user, date: this.date, hour: this.selectedSlot.hour ,area: this.selectedSlot.name, dogs: this.selectedDogs})
                 .then(() => {
