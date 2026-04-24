@@ -1,7 +1,7 @@
 <template>
   <v-overlay v-if="userStore.loading">
     <v-progress-circular indeterminate />
-</v-overlay>
+  </v-overlay>
   
   <v-container v-else>
     <div class="d-flex">
@@ -82,7 +82,7 @@
           <v-card-actions> 
             <v-btn variant="tonal" @click="dogStore.newDogInfo = false; dogStore.editDogInfo = false; dogStore.dog = {} as dogType">Cancel</v-btn> 
             <v-btn v-if="userStore.user?.userId && dogStore.newDogInfo" variant="tonal" @click="dogStore.addDog(userStore.user.userId)">Add Dog</v-btn> 
-            <v-btn v-if="userStore.user?.userId && dogStore.editDogInfo" variant="tonal" @click="dogStore.editDog(userStore.user.userId)">Edit Dog</v-btn> 
+            <v-btn v-if="dogStore.editDogInfo" variant="tonal" @click="dogStore.editDog()">Edit Dog</v-btn> 
           </v-card-actions> 
         </v-card>
       </section>
@@ -130,7 +130,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn @click="userStore.confirmation = false; dogStore.deleteDogInfo = false">Cancel</v-btn>
-          <v-btn @click="dogStore.deleteDog(JSON.parse(JSON.stringify(dogStore.dog))); userStore.confirmation = false">Confirm</v-btn>
+          <v-btn @click="dogStore.deleteDog(); userStore.confirmation = false">Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

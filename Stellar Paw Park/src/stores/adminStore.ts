@@ -44,14 +44,14 @@ export const useAdminStore = defineStore('AdminStore', {
                         this.verifyVaccination.push({...dogData, id: change.doc.id})
                     }
                     else if (change.type === 'removed'){
-                        this.verifyVaccination = this.verifyVaccination.filter((i) => i.id === dogData.id)
+                        this.verifyVaccination = this.verifyVaccination.filter((i) => i.id !== dogData.id)
                     }
                 }
             })
         },
         updateVaccination(dog: dogType) {
             const dogColl: CollectionReference = collection(db, 'dogs');
-            const qr = query(dogColl, where("ownerId", "==", dog.ownerId), where("name", "==", dog.name));
+            const qr = query(dogColl, where("id", "==", dog.id));
             getDocs(qr).then((qs: QuerySnapshot) => {
                 qs.forEach(async (qd: QueryDocumentSnapshot) => {
                     const dogDoc = doc(db, 'dogs', qd.id);
