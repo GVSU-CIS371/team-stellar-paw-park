@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 interface dogType {
+    id: string,
     ownerId: string;
     name: string;
     image: File;
