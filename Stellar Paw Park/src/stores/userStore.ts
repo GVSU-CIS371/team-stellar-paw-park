@@ -82,7 +82,6 @@ export const useUserStore = defineStore('UserStore', {
                     const dogData = change.doc.data() as dogType;
                     if (change.type === 'added') {
                         this.dogs.push({...dogData, id: change.doc.id})
-                        console.log(this.dogs);
                     }
                     else if (change.type === 'modified') {
                         const index = this.dogs.findIndex(i => i.id === dogData.id)
