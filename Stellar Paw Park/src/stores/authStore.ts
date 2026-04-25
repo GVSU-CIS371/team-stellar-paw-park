@@ -36,19 +36,24 @@ export const useAuthStore = defineStore('AuthStore', {
                 this.user = user;
 
                 const userStore = useUserStore();
+                const currentRoute = router.currentRoute.value;
 
                 if (user) {
                     await userStore.setUser(user);
-                    if (userStore.user?.admin) {
-                        router.push('/admin');
-                    }
-                    else {
-                        router.push('/userPage')
+                    if (currentRoute.path === '/userLogin') {
+                        if (userStore.user?.admin) {
+                            router.replace('/admin');
+                        }
+                        else {
+                            router.replace('/userPage')
+                        }
                     }
                 }
                 else {
                     userStore.clearUser();
-                    router.replace('/');
+                    if (currentRoute.path === '/userPage' || currentRoute.path === '/admin') {
+                        router.replace('/');
+                    }
                 }
             })
         },
