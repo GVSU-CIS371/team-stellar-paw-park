@@ -93,11 +93,14 @@
       <section id="bookings">
         <v-data-table :items="userStore.bookings" :headers="userStore.headers">
           <template v-slot:item.dogs="{ item }">
-            {{ item.dogs.join(", ") }}
+            {{ userStore.getDogNames(item.dogs).join(", ") }}
+          </template>
+          <template v-slot:item.time="{ item }">
+            {{ userStore.formatHour(item.time) }}
           </template>
           <template v-slot:item.actions="{ item }">
             <v-btn variant="tonal" size="md" 
-              @click="userStore.deleteBookingId = item.id;
+              @click="userStore.deleteBookingInfo = item;
               userStore.confirmation = true;
               userStore.deleteBooking = true"
               >Cancel

@@ -5,14 +5,15 @@ import {
     DocumentReference, 
     QuerySnapshot, 
     collection, 
-    doc, getDoc, 
-    getDocs, 
-    Query,
+    doc, 
+    getDoc,
+    updateDoc,
+    increment,
+    arrayRemove, 
     query, 
     setDoc, 
     where,
     onSnapshot,
-    QueryDocumentSnapshot,
     deleteDoc,
 } from 'firebase/firestore';
 import { User } from '@firebase/auth';
@@ -24,13 +25,14 @@ export const useUserStore = defineStore('UserStore', {
         user: null as userType | null,
         dogs: [] as dogType[],
         dogListener: null as (() => void) | null,
-        bookings:[] as {id: string, date: Date, dogs: [], hour: Number, area: string}[],
+        bookingListener: null as (() => void) | null,
         deleteBooking: false,
-        deleteBookingId: '',
+        deleteBookingInfo: {} as {id: string, date: string, dogs: [], time: number, area: string},
         confirmation: false,
+        bookings:[] as {id: string, date: string, dogs: [], time: number, area: string}[],
         headers: [
             {title: "Date", key: 'date'},
-            {title: "Hour", key: 'hour'},
+            {title: "Time", key: 'time'},
             {title: "Area", key: 'area'},
             {title: "Dogs", key: 'dogs'},
             {title: "Cancel", key: 'actions', sortable: false},
@@ -45,7 +47,7 @@ export const useUserStore = defineStore('UserStore', {
             if (userSnap.exists()) {
                 this.user = userSnap.data() as userType;
                 this.initDogListener();
-                this.bookingsInit();
+                this.initBookingListener();
             }
             else {
                 await this.createUser(user);
@@ -73,7 +75,6 @@ export const useUserStore = defineStore('UserStore', {
             
             if (this.dogListener) {
                 this.dogListener();
-                this.dogListener = null;
             }
 
             const dogColl = query(collection(db, 'dogs'), where('ownerId', '==', this.user.userId ));
@@ -93,24 +94,65 @@ export const useUserStore = defineStore('UserStore', {
                 }
             })
         },
-        async bookingsInit() {
-            const getBookColl: Query = query( collection(db, "bookings"), where("user", "==", this.user?.userId));
-            await getDocs(getBookColl).then((qs: QuerySnapshot) => {
-                qs.forEach((qd: QueryDocumentSnapshot) => {
-                    const bookData = qd.data();
-                    const date = bookData.date.toDate();
-                    const formattedDate = date.toLocaleDateString("en-CA");
-                    this.bookings.push({id: qd.id, date: formattedDate, dogs: bookData.dogs, hour: bookData.hour, area: bookData.area})
-                })
+        async initBookingListener() {
+            if (!this.user) {
+                return;
+            }
+            if (this.bookingListener) {
+                this.bookingListener()
+            }
+            const getBookColl = query(collection(db, 'userBookings', this.user.userId, 'bookings'));
+            this.bookingListener = onSnapshot(getBookColl, (s: QuerySnapshot) => {
+                for (let change of s.docChanges()) {
+                    const bookingData = change.doc.data();
+                    if (change.type === 'added') {
+                        this.bookings.push({
+                            id: change.doc.id, 
+                            area: bookingData.area as string, 
+                            time: bookingData.time as number, 
+                            date: bookingData.date as string, 
+                            dogs: bookingData.dogs as []})
+                    }
+                    else if (change.type === 'removed') {
+                        this.bookings = this.bookings.filter((i) => i.id != change.doc.id)
+                    }
+                }
             })
         },
         async cancelBooking() {
-            await deleteDoc(doc(db, "bookings", this.deleteBookingId))
-            this.bookings = this.bookings.filter( 
-                b => !(b.id === this.deleteBookingId));
+            if (!this.user) {
+                return;
+            }
+
+            const bookingRef = doc(db, "bookingsByDate", this.deleteBookingInfo.date);
+            const hourKey = String(this.deleteBookingInfo.time);
+            const areaKey = this.deleteBookingInfo.area;
+            await updateDoc(bookingRef, {
+                [`hours.${hourKey}.${areaKey}.dogCount`]:
+                    increment(-this.deleteBookingInfo.dogs.length),
+
+                [`hours.${hourKey}.${areaKey}.dogId`]:
+                    arrayRemove(...this.deleteBookingInfo.dogs),
+
+                [`hours.${hourKey}.${areaKey}.userId`]:
+                    arrayRemove(this.user.userId)
+            });
+
+            const removeDoc = doc(db, "userBookings", this.user.userId, "bookings", this.deleteBookingInfo.id)
+            await deleteDoc(removeDoc);
+
             this.confirmation = false;
             this.deleteBooking = false;
-            this.deleteBookingId = '';
+        },
+        formatHour(hour: number): string {
+            const suffix = hour >= 12 ? "PM" : "AM"
+            const formatted = hour % 12 || 12
+            return `${formatted.toString().padStart(2, " ")}:00 ${suffix}`
+        },
+        getDogNames(dogs: []) {
+            const map = new Map(this.dogs.map(d => [d.id, d.name]));
+            return dogs.map(id => map.get(id))
+            .filter((name): name is string => name !== undefined);
         }
     },
 })
