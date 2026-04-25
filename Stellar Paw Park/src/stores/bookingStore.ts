@@ -46,7 +46,13 @@ export const useBookingStore = defineStore('BookingStore', {
             const month = this.selectedDate.getMonth() + 1;
             const year = this.selectedDate.getFullYear();
             this.date = year.toString() + "-" + month.toString() + "-" + day.toString();
-            
+            const todayDate = new Date();
+            todayDate.setHours(0, 0, 0, 0);
+            if (this.selectedDate < todayDate) {
+                this.callendarMessage = "Unable to view previous days, please select another day!"
+                this.timeSlots = [];
+                return;
+            }
             // Check if closed on day selected and update error message
             if (this.selectedDate.getDay() === 0) {
                 this.callendarMessage = "We are closed on Sunday, please select another day!"
