@@ -36,6 +36,10 @@ export const useBookingStore = defineStore('BookingStore', {
         async dateSelected() {
             this.timeSlots = [];
             this.areas = [];
+            if (this.checkSelectedDate()) {
+                this.callendarMessage = "Unable to view past bookings, please select another day."
+                return;
+            }
             this.slotInit();
         },
         async slotInit() {
@@ -92,6 +96,23 @@ export const useBookingStore = defineStore('BookingStore', {
             const suffix = hour >= 12 ? "PM" : "AM"
             const formatted = hour % 12 || 12
             return `${formatted.toString().padStart(2, " ")}:00 ${suffix}`
+        },
+        checkSelectedDate() {
+            const todaysDate = new Date();
+
+            const today = new Date(
+                todaysDate.getFullYear(),
+                todaysDate.getMonth(),
+                todaysDate.getDate(),
+            )
+
+            const selectedDate = new Date(
+                this.date.getFullYear(),
+                this.date.getMonth(),
+                this.date.getDate()
+            )
+
+            return selectedDate < today
         },
         async checkBookings(hour: number) {
             const getHourColl: Query = query( collection(db, "bookings"), where("hour", "==", hour), where("date", "==", this.date));
