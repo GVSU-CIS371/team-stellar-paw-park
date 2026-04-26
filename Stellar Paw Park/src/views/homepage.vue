@@ -1,20 +1,9 @@
-<script setup lang="ts">
-  import homeOne from '../assets/images/homeOne.jpg'
-  import homeTwo from '../assets/images/homeTwo.jpg'
-  import homeThree from '../assets/images/homeThree.jpg'
-  import homeFour from '../assets/images/homeFour.jpg'
-  import mapImage from '../assets/images/gvsuMap.png'
-  
-const images = [homeOne, homeTwo, homeThree, homeFour];
-
-</script>
-
 <template>
   <div id="homepage">
 
-    <v-carousel hide-delimiter-background>
+    <v-carousel hide-delimiter-background cycle :interval="5000" height="60vh">
       <v-carousel-item v-for="(image, index) in images" :key="index">
-        <v-img :src="image" width="100%"></v-img>
+        <v-img :src="image" cover height="100%" width="100%"></v-img>
         <div class="carousel-overlay"></div>
       </v-carousel-item>
     </v-carousel>
@@ -68,3 +57,16 @@ const images = [homeOne, homeTwo, homeThree, homeFour];
     </v-container>
   </div>
 </template>
+
+<script setup lang="ts">
+  import home1 from '../assets/images/home1.jpg'
+  import home2 from '../assets/images/home2.jpg'
+  import home3 from '../assets/images/home3.jpg'
+  import home4 from '../assets/images/home4.jpg'
+  import home5 from '../assets/images/home5.jpg'
+  import home6 from '../assets/images/home6.jpg'
+  import mapImage from '../assets/images/gvsuMap.png'
+  
+  const images = [home1, home4, home2, home5, home3, home6];
+
+</script>
