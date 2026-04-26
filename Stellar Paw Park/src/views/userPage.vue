@@ -148,7 +148,3 @@ import { dogType } from '@/types/storeTypes';
 const dogStore = useDogStore();
 const userStore = useUserStore();
 </script>
-
-<style lang="scss">
-
-</style>

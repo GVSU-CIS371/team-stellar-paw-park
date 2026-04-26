@@ -1,6 +1,6 @@
 <template>
 
-  <v-footer app id="footer">
+  <v-footer id="footer">
     <div class="trademark">
       &copy; 2024 Stellar Paw Park. All rights reserved.
     </div>

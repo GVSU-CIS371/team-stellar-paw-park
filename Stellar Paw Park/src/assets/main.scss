@@ -1,6 +1,7 @@
 $dark-knight: #231938;
 $midnight-velvet: #2c213f;
-$galaxy-gold: #d4b58c;
+$galaxy-gold: #f5e1c7;
+$footer-background: #4b4458;
 
 .image-placeholder {
   width: 120px;
@@ -12,16 +13,27 @@ $galaxy-gold: #d4b58c;
 }
 
 #footer {
-    background-color: $dark-knight;
+    background-color: $footer-background;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
     "trademark address contact";
-    padding: 20px;
+    padding-left: 240px;
+    padding-right: 240px;
+    max-height: fit-content;
 
     .trademark { grid-area: trademark; color: $galaxy-gold; text-align: center; }
     .address { grid-area: address; color: $galaxy-gold; text-align: center; }
     .contact { grid-area: contact; color: $galaxy-gold; text-align: center; }
+}
+
+#header {
+  .v-app-bar {
+    background-color: $galaxy-gold;
+  }
+  .v-navigation-drawer {
+    background-color: $galaxy-gold;
+  }
 }
 
 #homepage {
@@ -49,6 +61,11 @@ $galaxy-gold: #d4b58c;
 }
 
 #about {
+  background-color: #d4b58c;
+  .about-card {
+    background-color: #231938;
+    color: $galaxy-gold;
+  }
   .about-image {
     width: 160px;
     height: 160px;
@@ -73,28 +90,36 @@ $galaxy-gold: #d4b58c;
     flex: 1 1 50%;
     min-width: 250px;
   }
-
   .hours-row {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid #eee;
   }
-
   .hours-row:last-child {
     border-bottom: none;
   }
-
   .day {
     font-weight: 500;
   }
-
   .time {
     font-weight: 400;
   }
-
   .closed .time {
     color: #888;
     font-style: italic;
+  }
+}
+
+#user-login {
+  .login-container {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-card {
+    margin: auto;
   }
 }

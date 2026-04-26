@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">  
-  import logo from '../assets/images/StellarParkThree.png'
+  import logo from '../assets/images/StellarParkThreeNoWords.png'
   import { useAuthStore } from '../stores/authStore';
   const authStore = useAuthStore();
 
