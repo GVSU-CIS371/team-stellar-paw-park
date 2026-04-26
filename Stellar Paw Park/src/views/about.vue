@@ -5,7 +5,7 @@
       <v-divider class="my-4"></v-divider>
       <h2 class="mb-4">Our Family</h2>
 
-      <v-card class="mb-4 pa-4">
+      <v-card class="about-card mb-4 pa-4">
         <div class="d-flex align-center">
           <img :src="chase" class="about-image mr-4"></img>
           <div>
@@ -18,7 +18,7 @@
         </div>
       </v-card>
 
-      <v-card class="mb-4 pa-4">
+      <v-card class="about-card mb-4 pa-4">
         <div class="d-flex align-center justify-space-between">
           <div>
             <v-card-title>Keren Sloma</v-card-title>
@@ -31,7 +31,7 @@
         </div>
       </v-card>
 
-      <v-card class="mb-4 pa-4">
+      <v-card class="about-card mb-4 pa-4">
         <div class="d-flex align-center">
           <img :src="nova" class="about-image mr-4"></img>
           <div>
@@ -44,7 +44,7 @@
         </div>
       </v-card>
 
-      <v-card class="mb-4 pa-4">
+      <v-card class="about-card mb-4 pa-4">
         <div class="d-flex align-center justify-space-between">
           <div>
             <v-card-title>Arie</v-card-title>
@@ -62,7 +62,7 @@
       <h2 class="mb-4">Our Park</h2>
       <div class="d-flex gap-4 flex-wrap justify-center mt-6">
 
-        <v-card class="pa-4 flex-card">
+        <v-card class="about-card pa-4 flex-card">
           <v-card-title>Indoor Park</v-card-title>
           <v-card-text>
             <p>
@@ -79,7 +79,7 @@
           </v-card-text>
         </v-card>
 
-        <v-card class="pa-4 flex-card">
+        <v-card class="about-card pa-4 flex-card">
           <v-card-title>Outdoor Park</v-card-title>
           <v-card-text>
             <p>
@@ -101,7 +101,7 @@
 
       <h2 class="mb-4">Park Hours</h2>
 
-      <v-card class="pa-4">
+      <v-card class="about-card pa-4">
         <div class="d-flex flex-wrap">
 
           <div class="half pr-4">
@@ -139,7 +139,7 @@
 
       <h2 class="mb-4">Park Policies</h2>
 
-      <v-card class="pa-4">
+      <v-card class="about-card pa-4">
         <v-card-text>
           <ul class="policy-list">
             <li><strong>Vaccinations Required:</strong> All dogs must be up-to-date on core vaccinations.</li>
