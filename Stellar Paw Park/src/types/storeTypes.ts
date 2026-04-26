@@ -19,6 +19,7 @@ interface userType {
     phone: string;
     admin: boolean;
 }
+
 interface bookingType {
     [area: string]: number
 }
@@ -42,4 +43,21 @@ interface slotType {
     type: string;
 }
 
-export type { userType, dogType, bookingType, areaType, hourType, slotType };
+interface messageType {
+    email: string;
+    message: string;
+    name: string;
+    phone: string;
+    date: string;
+    id: string;
+}
+
+export type { 
+    userType, 
+    dogType, 
+    bookingType, 
+    areaType, 
+    hourType, 
+    slotType, 
+    messageType, 
+};
