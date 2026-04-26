@@ -106,6 +106,8 @@ export const useAuthStore = defineStore('AuthStore', {
             this.email = "";
             this.password1 = "";
             this.password2 = "";
-        }
+            this.fname = "";
+            this.lname = "";
+        },
     },
 })

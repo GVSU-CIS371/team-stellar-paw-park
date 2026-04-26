@@ -75,6 +75,7 @@ export const useUserStore = defineStore('UserStore', {
             
             if (this.dogListener) {
                 this.dogListener();
+                this.dogListener = null;
             }
 
             const dogColl = query(collection(db, 'dogs'), where('ownerId', '==', this.user.userId ));
@@ -99,24 +100,21 @@ export const useUserStore = defineStore('UserStore', {
                 return;
             }
             if (this.bookingListener) {
-                this.bookingListener()
+                this.bookingListener();
+                this.bookingListener = null;
             }
             const getBookColl = query(collection(db, 'userBookings', this.user.userId, 'bookings'));
             this.bookingListener = onSnapshot(getBookColl, (s: QuerySnapshot) => {
-                for (let change of s.docChanges()) {
-                    const bookingData = change.doc.data();
-                    if (change.type === 'added') {
-                        this.bookings.push({
-                            id: change.doc.id, 
-                            area: bookingData.area as string, 
-                            time: bookingData.time as number, 
-                            date: bookingData.date as string, 
-                            dogs: bookingData.dogs as []})
-                    }
-                    else if (change.type === 'removed') {
-                        this.bookings = this.bookings.filter((i) => i.id != change.doc.id)
-                    }
-                }
+                this.bookings = s.docs.map(doc => {
+                    const bookingData = doc.data();
+                    return {
+                        id: doc.id, 
+                        area: bookingData.area as string, 
+                        time: bookingData.time as number, 
+                        date: bookingData.date as string, 
+                        dogs: bookingData.dogs as []
+                    };
+                })
             })
         },
         async cancelBooking() {

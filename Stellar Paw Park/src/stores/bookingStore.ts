@@ -85,6 +85,7 @@ export const useBookingStore = defineStore('BookingStore', {
             const bookingRef = doc(db, "bookingsByDate", this.date);
             if (this.bookingUnsubscribe) {
                 this.bookingUnsubscribe();
+                this.bookingUnsubscribe = null;
             }
             this.timeSlots = [];
             this.bookingUnsubscribe = onSnapshot(bookingRef, (snapshot) => {
