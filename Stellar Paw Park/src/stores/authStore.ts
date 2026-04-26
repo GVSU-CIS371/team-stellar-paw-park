@@ -61,7 +61,6 @@ export const useAuthStore = defineStore('AuthStore', {
             const provider = new GoogleAuthProvider();
             signInWithPopup(getAuth(), provider)
                 .then((result) => {
-                    this.message = "Google login successful!";
                     this.reset();
                 })
                 .catch((error) => {
@@ -71,7 +70,6 @@ export const useAuthStore = defineStore('AuthStore', {
         loginWithEmail() {
             signInWithEmailAndPassword(getAuth(), this.email, this.password1)
                 .then((userCredential) => {
-                    this.message = "Login successful!";
                     this.reset();
                 })
                 .catch((error) => {
@@ -90,7 +88,6 @@ export const useAuthStore = defineStore('AuthStore', {
 
             createUserWithEmailAndPassword(getAuth(), this.email, this.password1)
                 .then(async (result) => {
-                    this.message = "Registration successful";
                     this.signUp = false;
                     this.reset();
                 })
@@ -108,6 +105,7 @@ export const useAuthStore = defineStore('AuthStore', {
             this.password2 = "";
             this.fname = "";
             this.lname = "";
+            this.message = "";
         },
     },
 })
