@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { messageType } from '../types/storeTypes'
 import db from '../firebase'
 import { 
     collection,
@@ -8,33 +9,21 @@ import {
 
 export const useContactStore = defineStore('ContactStore', {
     state: () => ({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
+        message: {} as messageType,
     }),
     actions: {
         submitForm() {
             const contactColl: CollectionReference = collection(db, 'contactForms');
-            const contactData = {
-                name: this.name,
-                email: this.email,
-                phone: this.phone,
-                message: this.message,
-                timestamp: new Date(),
-            };
-            addDoc(contactColl, contactData)
-                .then(() => {
-                    console.log("Contact form submitted successfully!");
-                    this.name = "";
-                    this.email = "";
-                    this.phone = "";
-                    this.message = "";
-                })
-                .catch((error) => {
-                    console.error("Error submitting contact form: ", error);
-                });
-
+            this.message.date = this.formatDate();
+            addDoc(contactColl, this.message);
+            this.message = {} as messageType;
+        },
+        formatDate() {
+            const date = new Date()
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return (year.toString() + "-" + month.toString() + "-" + day.toString());
         }
     }
 })
