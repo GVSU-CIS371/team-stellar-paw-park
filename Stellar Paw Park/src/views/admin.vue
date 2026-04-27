@@ -13,11 +13,16 @@
         <section id="vaccinations">
           <h1>Verify Vaccination Records</h1>
           <v-data-table :items="adminStore.verifyVaccination" :headers="adminStore.dogHeaders">
-            <template v-slot:item.DOB="{ item }">
-              {{ item.DOB?.toDate?.().toLocaleDateString?.() }}
-            </template>
-            <template v-slot:item.ownderId="{ item }">
-              {{ item.DOB?.toDate?.().toLocaleDateString?.() }}
+            <template v-slot:item.vaccinationImg="{ item }">
+              <v-btn
+                v-if="item.vaccinationImg"
+                variant="text"
+                :href="item.vaccinationImg.url"
+                target="_blank"
+              >
+                View PDF
+              </v-btn>
+              <span v-else>No file</span>
             </template>
             <template v-slot:item.actions="{ item }">
             <v-btn variant="tonal" size="md" 
