@@ -1,6 +1,7 @@
 $dark-knight: #231938;
 $midnight-velvet: #2c213f;
 $galaxy-gold: #f5e1c7;
+$background-gold: #d4b58c;
 $footer-background: #4b4458;
 
 .image-placeholder {
@@ -61,10 +62,10 @@ $footer-background: #4b4458;
 }
 
 #about {
-  background-color: #d4b58c;
+  background-color: $background-gold;
   .about-card {
-    background-color: #231938;
-    color: $galaxy-gold;
+    background-color: $background-gold;
+    color: $dark-knight;
   }
   .about-image {
     width: 160px;
@@ -122,4 +123,57 @@ $footer-background: #4b4458;
   .login-card {
     margin: auto;
   }
+}
+
+#contact {
+  min-height: 100%;
+  background-color: $background-gold;
+  color: $dark-knight;
+  .card {
+    background-color: $background-gold;
+    color: $dark-knight;
+    border: 5px solid $dark-knight;
+  }
+}
+
+#booking {
+  min-height: 100%;
+  background-color: $background-gold;
+  color: $background-gold;
+  .calendar {
+    background-color: $background-gold;
+  }
+  .card {
+    background-color: $background-gold;
+    color: $dark-knight;
+    border: 2px solid $dark-knight;
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 999;
+}
+
+.spinner {
+  border: 4px solid #ccc;
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

@@ -9,7 +9,7 @@
     </v-carousel>
 
     <v-container class="our-story">
-      <h2>Our Dream</h2>
+      <h2>OUR DREAM</h2>
       <v-col justify="center" align="center">
         <p>
           What started as a simple challenge at home quickly became a bigger idea.
@@ -52,7 +52,7 @@
     </v-container>
 
     <v-container class="map" justify="center" align="center">
-      <h2>Find Us</h2>
+      <h2>FIND US</h2>
       <v-img :src="mapImage" height="600"></v-img>
     </v-container>
   </div>

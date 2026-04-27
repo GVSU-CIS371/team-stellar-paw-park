@@ -1,11 +1,11 @@
 <template>
   <div id="about">
     <v-container max-width="800">
-      <h1>About Us</h1>
+      <h1>ABOUT US</h1>
       <v-divider class="my-4"></v-divider>
-      <h2 class="mb-4">Our Family</h2>
+      <h2 class="mb-4">OUR FAMILY</h2>
 
-      <v-card class="about-card mb-4 pa-4">
+      <v-card elevation=0 class="about-card mb-4 pa-4">
         <div class="d-flex align-center">
           <img :src="chase" class="about-image mr-4"></img>
           <div>
@@ -18,7 +18,7 @@
         </div>
       </v-card>
 
-      <v-card class="about-card mb-4 pa-4">
+      <v-card elevation=0 class="about-card mb-4 pa-4">
         <div class="d-flex align-center justify-space-between">
           <div>
             <v-card-title>Keren Sloma</v-card-title>
@@ -31,7 +31,7 @@
         </div>
       </v-card>
 
-      <v-card class="about-card mb-4 pa-4">
+      <v-card elevation=0 class="about-card mb-4 pa-4">
         <div class="d-flex align-center">
           <img :src="nova" class="about-image mr-4"></img>
           <div>
@@ -44,7 +44,7 @@
         </div>
       </v-card>
 
-      <v-card class="about-card mb-4 pa-4">
+      <v-card elevation=0 class="about-card mb-4 pa-4">
         <div class="d-flex align-center justify-space-between">
           <div>
             <v-card-title>Arie</v-card-title>
@@ -59,10 +59,10 @@
 
       <v-divider class="my-4"></v-divider>
 
-      <h2 class="mb-4">Our Park</h2>
+      <h2 class="mb-4">OUR PARK</h2>
       <div class="d-flex gap-4 flex-wrap justify-center mt-6">
 
-        <v-card class="about-card pa-4 flex-card">
+        <v-card elevation=0 class="about-card pa-4 flex-card">
           <v-card-title>Indoor Park</v-card-title>
           <v-card-text>
             <p>
@@ -79,7 +79,9 @@
           </v-card-text>
         </v-card>
 
-        <v-card class="about-card pa-4 flex-card">
+        <v-divider vertical></v-divider>
+
+        <v-card elevation=0 class="about-card pa-4 flex-card">
           <v-card-title>Outdoor Park</v-card-title>
           <v-card-text>
             <p>
@@ -99,9 +101,9 @@
 
       <v-divider class="my-4"></v-divider>
 
-      <h2 class="mb-4">Park Hours</h2>
+      <h2 class="mb-4">PARK HOURS</h2>
 
-      <v-card class="about-card pa-4">
+      <v-card elevation=0 class="about-card pa-4">
         <div class="d-flex flex-wrap">
 
           <div class="half pr-4">
@@ -137,9 +139,9 @@
       
       <v-divider class="my-4"></v-divider>
 
-      <h2 class="mb-4">Park Policies</h2>
+      <h2 class="mb-4">PARK POLICIES</h2>
 
-      <v-card class="about-card pa-4">
+      <v-card elevation=0 class="about-card pa-4">
         <v-card-text>
           <ul class="policy-list">
             <li><strong>Vaccinations Required:</strong> All dogs must be up-to-date on core vaccinations.</li>

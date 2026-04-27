@@ -1,39 +1,42 @@
 <template>
-  <v-container width="800" class="mx-auto pa-4">
-    <h1>Session Booking</h1>
-    <v-row class="justify-center">
-      <v-date-picker 
-      title="Pick a date to view available time slots. Must be logged in to sign up."
-        v-model="bookingStore.selectedDate" 
-        @click="bookingStore.formatDate(); bookingStore.errorMessage = ''"
-        :weekday-format="$vuetify.display.width > 550 ? 'long' : 'short'"
-        width="700"
-      ></v-date-picker>
-      <p>{{ bookingStore.callendarMessage }}</p>
-    </v-row>
-    
-    <v-row>
-      <v-col
-        v-for="(slot, index) in bookingStore.timeSlots"
-        :key="index"
-        cols="4"
-      >
-        <v-card class="mb-4 pa-4" @click="bookingStore.selectedSlot = slot; bookingStore.checkBooking(userStore.user?.userId)">
-          <div class="d-flex align-center">
-            <div>
-              <v-card-title class="pa-0">{{ bookingStore.formatHour(slot.hour) }}</v-card-title>
-              <v-card-text class="pa-0">
-                <div>Area Name: {{ slot.name }}</div>
-                <div>Capacity: {{ slot.currentCapacity }} / {{ slot.maxCapacity }}</div>
-                <div>Public/Private: {{ slot.type }} </div>
-              </v-card-text>
+  <div id="booking">
+    <v-container width="800" class="mx-auto pa-4">
+      <h1>SESSION BOOKING</h1>
+      <v-row class="justify-center">
+        <v-date-picker 
+        title="Pick a date to view available time slots. Must be logged in to sign up."
+          class="calendar"
+          v-model="bookingStore.selectedDate" 
+          @click="bookingStore.formatDate(); bookingStore.errorMessage = ''"
+          :weekday-format="$vuetify.display.width > 550 ? 'long' : 'short'"
+          width="800"
+        ></v-date-picker>
+        <p>{{ bookingStore.callendarMessage }}</p>
+      </v-row>
+      
+      <v-row>
+        <v-col
+          v-for="(slot, index) in bookingStore.timeSlots"
+          :key="index"
+          cols="4"
+        >
+          <v-card class="card mb-4 pa-4" @click="bookingStore.selectedSlot = slot; bookingStore.checkBooking(userStore.user?.userId)">
+            <div class="d-flex align-center">
+              <div>
+                <v-card-title class="pa-0">{{ bookingStore.formatHour(slot.hour) }}</v-card-title>
+                <v-card-text class="pa-0">
+                  <div>Area Name: {{ slot.name }}</div>
+                  <div>Capacity: {{ slot.currentCapacity }} / {{ slot.maxCapacity }}</div>
+                  <div>Public/Private: {{ slot.type }} </div>
+                </v-card-text>
+              </div>
             </div>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
 
-  </v-container>
+    </v-container>
+  </div>
 
   <v-dialog v-model="bookingStore.showError" max-width="400">
     <v-card>
@@ -61,7 +64,6 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
-
 </template>
 
 <script setup lang="ts">
