@@ -1,16 +1,21 @@
 import { Timestamp } from "firebase/firestore";
 
 interface dogType {
-    id: string,
+    id: string;
     ownerId: string;
     name: string;
-    image: File;
+    image: imgFile;
     breed: string;
     color: string;
-    DOB: Timestamp;
+    DOB: string;
     vaccinated: boolean;
-    vaccinationImg: File;
+    vaccinationImg: imgFile;
 } 
+
+interface imgFile{
+    url: string;
+    path: string;
+}
 
 interface userType {
     userId: string;
@@ -59,5 +64,6 @@ export type {
     areaType, 
     hourType, 
     slotType, 
-    messageType, 
+    messageType,
+    imgFile 
 };
