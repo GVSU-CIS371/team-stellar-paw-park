@@ -2,6 +2,11 @@
   <v-overlay v-if="userStore.loading">
     <v-progress-circular indeterminate />
   </v-overlay>
+
+  <div v-if="dogStore.updating" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Updating dog...</p>
+  </div>
   
   <v-container v-else>
     <div class="d-flex">
@@ -29,13 +34,13 @@
               <div class="d-flex align-center">
 
                 <div class="d-flex align-center flex-grow-1">
-                  <v-img class="image-placeholder mr-4"/>
+                  <v-img :src="dog.image?.url" class="image-placeholder mr-4"/>
                   <div>
                     <v-card-title class="pa-0"> {{ dog.name }} </v-card-title>
                     <v-card-text class="pa-0">
                       <div>Breed: {{ dog.breed }}</div>
                       <div>Color: {{ dog.color }}</div>
-                      <div>DOB: {{ dog.DOB?.toDate?.().toLocaleDateString?.() }} </div>
+                      <div>DOB: {{ dog.DOB }} </div>
                     </v-card-text>
                   </div>
                 </div>
@@ -74,10 +79,24 @@
           <v-text-field label="Dog Name" variant="outlined" v-model="dogStore.dog.name"></v-text-field> 
           <v-combobox label="Dog Breed" :items="dogBreeds" variant="outlined" v-model="dogStore.dog.breed"></v-combobox> 
           <v-text-field label="Color" variant="outlined" v-model="dogStore.dog.color"></v-text-field> 
-          <v-date-input label="Dog DOB" variant="outlined" v-model="dogStore.dog.DOB"></v-date-input> 
+          <v-text-field label="Dog DOB" variant="outlined" v-model="dogStore.dog.DOB"></v-text-field> 
           <v-row> 
-            <v-file-input max-width="250" max-height="250" label="Upload Dog Image" prepend-icon="mdi-camera" variant="outlined" accept=".jpg,.jpeg,.png"></v-file-input> 
-            <v-file-input max-width="250" max-height="250" label="Upload Vaccination Records" prepend-icon="mdi-camera" variant="outlined" accept=".jpg,.jpeg,.png,.pdf"></v-file-input> 
+            <v-file-input 
+            max-width="250"
+             max-height="250" 
+             label="Upload Dog Image" 
+             prepend-icon="mdi-camera" 
+             variant="outlined" 
+             accept=".jpg,.jpeg,.png" 
+             v-model="dogStore.imgFile"></v-file-input> 
+            <v-file-input 
+            max-width="250" 
+            max-height="250" 
+            label="Upload Vaccination Records" 
+            prepend-icon="mdi-camera" 
+            variant="outlined" 
+            accept=".jpg,.jpeg,.png,.pdf" 
+            v-model="dogStore.vacFile"></v-file-input> 
           </v-row> 
           <v-card-actions> 
             <v-btn variant="tonal" @click="dogStore.newDogInfo = false; dogStore.editDogInfo = false; dogStore.dog = {} as dogType">Cancel</v-btn> 

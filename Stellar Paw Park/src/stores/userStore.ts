@@ -151,6 +151,6 @@ export const useUserStore = defineStore('UserStore', {
             const map = new Map(this.dogs.map(d => [d.id, d.name]));
             return dogs.map(id => map.get(id))
             .filter((name): name is string => name !== undefined);
-        }
+        },
     },
 })
