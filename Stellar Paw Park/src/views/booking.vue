@@ -52,7 +52,7 @@
       <v-card-text>
         <v-select 
         v-model="bookingStore.selectedDogId"
-        :items="userStore.dogs"
+        :items="bookingStore.checkUserDogs(userStore.dogs)"
         item-title="name"
         item-value="id"
         multiple

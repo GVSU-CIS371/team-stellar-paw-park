@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { areaType, hourType, slotType, userType } from '../types/storeTypes'
+import { areaType, dogType, hourType, slotType, userType } from '../types/storeTypes'
 import db from '../firebase'
 import { 
     addDoc, 
@@ -166,6 +166,22 @@ export const useBookingStore = defineStore('BookingStore', {
                 area: this.selectedSlot.name})
             this.booking = false;
             this.selectedDogId = [];
+        },
+        checkUserDogs(dogs: dogType[]): dogType[] {
+            if (dogs.length == 0) {
+                this.errorMessage = "No dogs are assigned to your account"
+                this.showError = true;
+                this.booking = false;
+                return dogs;
+            }
+            const vacList = dogs.filter(dog => dog.vaccinated);
+            if (vacList.length == 0) {
+                this.errorMessage = "Dogs vaccination must be approved before booking a slot"
+                this.showError = true;
+                this.booking = false;
+                return [];
+            }
+            return vacList;
         }
     }
 });
